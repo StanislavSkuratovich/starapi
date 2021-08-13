@@ -18,8 +18,6 @@ export default class ItemDetails extends Component {
     if(!itemId)//isnull
     {return};
     this.setState({itemId:itemId});
-    console.log(` id in details ${this.props.itemId}`);
-    console.log(` id in state ${this.state.itemId}`);
     this.swapi// todo next
     .getPerson(itemId)
     .then((item)=>{

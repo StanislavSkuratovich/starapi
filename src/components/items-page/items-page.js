@@ -1,21 +1,20 @@
 import React from 'react'
 import ErrorButton from '../error-button/error-button';
-import ItemList from '../items-list/items-list';
+import ItemsList from '../items-list/items-list';
 import ItemDetails from '../item-details/item-details';
 import ErrorPlate from '../error-plate/error-plate';
 
 import './items-page.css';
 
-
 export default class ItemsPage extends React.Component{
   state = {
-    selectedPerson:5,
+    selectedItem:5,
     hasError: false
   }
 
-  onPersonSelected =(id)=>{
+  onItemSelected =(id)=>{
     console.log(id)
-    this.setState({selectedPerson:id})
+    this.setState({selectedItem:id})
   }
 
   componentDidCatch(){
@@ -27,17 +26,25 @@ export default class ItemsPage extends React.Component{
    if(this.state.hasError){
      return <ErrorPlate/>
     }
+    
+    const _itemsList = (
+      <ItemsList 
+      onItemSelected = {this.onItemSelected}
+      getData = {getData}
+      renderItem = {renderItem} />
+    );
+
+    const _itemDetails = (
+      <ItemDetails itemId = {this.state.selectedItem}/>
+    );
 
     return(
       <div className="row mb2">
       <div className="col-md-6">
-        <ItemList 
-        onItemSelected = {this.onPersonSelected}
-        getData = {getData}
-        renderItem = {renderItem} />
+       {_itemsList}
       </div>
       <div className="col-md-6">
-        <ItemDetails itemId = {this.state.selectedPerson}/>
+       {_itemDetails}
       </div>
       <ErrorButton/>
     </div>
